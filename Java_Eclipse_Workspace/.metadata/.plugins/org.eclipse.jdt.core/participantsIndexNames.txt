@@ -1,9 +1,0 @@
-INDEX VERSION 1.131
-C:\Users\sarrajen\Documents\Java_Eclipse_Workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2769193549.index
-\springrest\src\main\java
-C:\Users\sarrajen\Documents\Java_Eclipse_Workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\825652076.index
-\SpringMVC2.0\src\main\java
-C:\Users\sarrajen\Documents\Java_Eclipse_Workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1835881162.index
-\springrest\src\main\resources
-C:\Users\sarrajen\Documents\Java_Eclipse_Workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1115583824.index
-\SpringMVC2.0\src\main\java
