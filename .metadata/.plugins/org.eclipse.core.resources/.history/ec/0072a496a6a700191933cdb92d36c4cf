@@ -1,0 +1,23 @@
+package com.pack.springmvc.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.pack.springmvc.service.EmployeeService;
+
+@Controller
+@RequestMapping("employee")
+public class RegistrationController {
+
+	@GetMapping("/displayall")
+	public void displayAll() {
+		EmployeeService 
+	}
+	
+	@GetMapping("/register")
+	public String register() {
+		return "register";
+	}
+
+}

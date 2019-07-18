@@ -1,0 +1,32 @@
+package com.pack.springmvc.controller;
+
+import java.util.List;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.pack.springmvc.service.EmployeeService;
+import com.pack.springmvc.model.Employee;
+
+@Controller
+@RequestMapping("employee")
+public class RegistrationController {
+
+	@GetMapping("/displayall")
+	public void displayAll() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
+
+		EmployeeService employeeService = context.getBean("employeeService", EmployeeService.class);
+
+		List<Employee> emplist = employeeService.listAllEmployee();
+	}
+	
+	@GetMapping("/register")
+	public String register() {
+		return "register";
+	}
+
+}
