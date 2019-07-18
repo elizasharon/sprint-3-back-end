@@ -1,0 +1,14 @@
+1563257255471	Delete element
+1563257371146	Delete element
+1563257551948	Rename package 'springmvc.controller'
+1563257567439	Rename package 'com.pack.springmvc.controller'
+1563258907018	Delete element
+1563259727449	Rename resource 'application-context.xml'
+1563259793938	Move 'test.jsp' to 'webapp'
+1563259835497	Rename resource 'app-context.xml'
+1563259974021	Move 'test.jsp' to 'views'
+1563260765299	Delete element
+1563260899287	Rename resource 'application-context.xml'
+1563260963054	Copy file
+1563274897317	Rename resource 'spring-servlet.xml'
+1563275323004	Rename resource 'display.jsp'
