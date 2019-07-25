@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>UI-Demo</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<p>Calculator!</p>
+<br><br>
+<label>
+  Enter the number a :
+  <input type="text" name="one" id="a"/>
+</label>
+<br><br>
+<label>
+  Enter the number b :
+  <input type="text" name="two" id="b"/>
+</label>
+<br><br>
+<h2>Result : <span id="result"> </span></h2>
+<br><br>
+<input type="button" value="ADD" onclick="add()"/>
+<input type="button" value="SUB" onclick="sub()"/>
+<input type="button" value="MUL" onclick="mul()"/>
+<input type="button" value="DIV" onclick="div()"/>
+<br><br>
+<script>
+
+    function add() {
+        a = document.getElementById("a").value;
+        b = document.getElementById("b").value;
+        if (validate(a, b)) {
+            document.getElementById("result").innerText = parseFloat(a) + parseFloat(b);
+        }
+    }
+
+    function sub() {
+        a = document.getElementById("a").value;
+        b = document.getElementById("b").value;
+        if (validate(a, b)) {
+            document.getElementById("result").innerText = parseFloat(a) - parseFloat(b);
+        }
+    }
+
+    function mul() {
+        a = document.getElementById("a").value;
+        b = document.getElementById("b").value;
+        if (validate(a, b)) {
+            document.getElementById("result").innerText = parseFloat(a) * parseFloat(b);
+        }
+    }
+
+    function div() {
+        a = document.getElementById("a").value;
+        b = document.getElementById("b").value;
+        if (validate(a, b)) {
+            if (divideByZero(a, b))
+            document.getElementById("result").innerText = parseFloat(a) / parseFloat(b);
+        }
+    }
+
+    function validate(a, b) {
+        if ((isNaN(a) || isNaN(b)) || (a === "" || b === ""))
+            alert("Enter numbers in the input box");
+        else
+            return true;
+    }
+
+    function divideByZero(a, b) {
+        if (parseFloat(b) === 0)
+            alert("Cannot divide by zero");
+        else
+            return true;
+    }
+
+</script>
+</body>
+
+</html>
+

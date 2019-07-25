@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LOGIN</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+        .container{
+            width: 50%;
+            margin: 0 auto;
+        }
+        label{
+            font-weight: 700;
+        }
+    </style>
+    <script>
+        function checkform(form) {
+            username = form.username.value;
+            password = form.password.value;
+            if((username === localStorage.getItem("username")) && (password === localStorage.getItem("password"))){
+                return true;
+            }
+            else{
+                document.getElementById("invalid").innerText = "Invalid Username or Password";
+                return  false;
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <br><br>
+    <h2>Registration</h2>
+    <br><br>
+    <h3 id="invalid"></h3>
+    <br><br>
+    <form action="Success.html" autocomplete="off" onsubmit="return checkform(this)">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="text" class="form-control" id="password" placeholder="Enter password" name="password">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
+
+</body>
+</html>
