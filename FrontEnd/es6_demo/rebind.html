@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rebind</title>
+</head>
+<body>
+    <div style="padding: 20px;">
+        <button id="btn">Click Me !</button>
+    </div>
+    <script>
+        document.querySelector("#btn").addEventListener('click',function () {
+            console.log("Button Clicked");
+            console.log(this);
+            this.parentElement.parentElement.style.backgroundColor = "tomato";
+            this.style.backgroundColor = "tomato";
+        });
+    </script>
+</body>
+</html>
