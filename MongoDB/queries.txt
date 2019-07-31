@@ -1,0 +1,39 @@
+use database_name //will create a new database
+db // will show the database name
+show collections // list all the collections
+
+db.emp.insert({
+"name" : "Sheldon Cooper",
+"Age" : 46
+});
+
+db.Employee.insertMany([{
+"Designation" : "Programmer",
+"name" : "Bernadette Rostenkowski",
+"Age" : 36
+},{
+"name" : "Amy Farrah Fowler",
+"Age" : 35,
+"Designation" : "Admin"
+},{
+"name" : "Stuart Bloom",
+"Designation" : "Tester",
+"Age" : 48
+},{
+"name" : "Rajesh Koothrapalli",
+"Age" : 37,
+"Designation" : "Manager"
+},{
+"name" : "Penny",
+"Age" : 32
+}]);
+
+db.Employee.find({$or : [{"Age" : {$gte : 40}} , {"Designation" : "Tester"} ]}).pretty(); 
+
+db.Employee.find({$or : [{"Age" : {$gte : 40}} , {"Designation" : "Tester"} ]}).limit(2).pretty();
+
+db.Employee.update({"Designation": "Tester"}, {$set : {"Age" : 25}});
+
+db.Employee.update({"Designation": "Tester"}, {$set : {"Age" : 25}}, {multi : true});
+
+db.Employee.updateMany({}, {$rename : { "name" : "Name"} } );

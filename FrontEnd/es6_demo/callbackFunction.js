@@ -235,6 +235,3 @@ users.filter(user => user.id < 3).map(user => ({
     name: user.username,
     website: user.website
 })).forEach(user => console.log(user));
-//  var obj = {name : "abc", age : 21};
-// const {} = obj;
-// console.log(name);
