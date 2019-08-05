@@ -1,0 +1,8 @@
+.container h1{
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.container h1, h2{
+    text-align: center;
+}

@@ -1,0 +1,25 @@
+.SingleMovie .row .col-md-6 img{
+    width: 100%;
+    height: 350px;
+}
+
+.SingleMovie .row .col-md-6 .card{
+    height: 350px;
+}
+
+.SingleMovie .row {
+    margin: 0;
+    padding: 0;
+}
+
+.actors{
+    padding-left: 15px;
+}
+
+.year{
+    float: right;
+}
+
+.getAllMovies-btn {
+    text-align: center;
+}
