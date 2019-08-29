@@ -1,1 +1,0 @@
-insert into Student values (1, 'Cooper', 'Brito');
