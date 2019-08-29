@@ -3,7 +3,8 @@ import {
     FILTER_SECURITY_QUESTION_ONE, FILTER_SECURITY_QUESTION_TWO,
     USER_BASIC_DATA_EVENT_HANDLER, PASSWORD_EVENT_HANDLER,
     SECURITY_ANSWER_ONE, SECURITY_ANSWER_TWO, 
-    GENDER_EVENT_HANDLER, MARITAL_STATUS_EVENT_HANDLER
+    GENDER_EVENT_HANDLER, MARITAL_STATUS_EVENT_HANDLER,
+    SET_USER_ID
 } from './types';
 import Axios from '../Axios';
 
@@ -82,5 +83,13 @@ export const securityAnswers = (data) => (dispatch) => {
             payload: data.answer
         })
     }
+}
+
+export const setUserId = (data) => (dispatch) => {
+    console.log(data);
+    return dispatch({
+        type: SET_USER_ID,
+        payload: data
+    })
 }
 

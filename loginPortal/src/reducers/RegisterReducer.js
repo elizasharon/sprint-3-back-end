@@ -2,8 +2,9 @@ import {
   FETCH_SECURITY_QUESTIONS, FILTER_SECURITY_QUESTIONS,
   FILTER_SECURITY_QUESTION_ONE, FILTER_SECURITY_QUESTION_TWO,
   USER_BASIC_DATA_EVENT_HANDLER, PASSWORD_EVENT_HANDLER,
-  SECURITY_ANSWER_ONE, SECURITY_ANSWER_TWO, 
-  GENDER_EVENT_HANDLER, MARITAL_STATUS_EVENT_HANDLER
+  SECURITY_ANSWER_ONE, SECURITY_ANSWER_TWO,
+  GENDER_EVENT_HANDLER, MARITAL_STATUS_EVENT_HANDLER,
+  SET_USER_ID
 } from '../actions/types';
 
 const initialState = {
@@ -33,7 +34,7 @@ const initialState = {
   fullList: [],
   securityQuestion1: [],
   securityQuestion2: [],
-
+  userId: ""
 
 };
 
@@ -78,10 +79,10 @@ export default function (state = initialState, action) {
         ...state,
         users: { ...state.users, gender: action.payload }
       }
-      case MARITAL_STATUS_EVENT_HANDLER:
+    case MARITAL_STATUS_EVENT_HANDLER:
       return {
         ...state,
-        users: { ...state.users, maritalStatus : action.payload }
+        users: { ...state.users, maritalStatus: action.payload }
       }
     case SECURITY_ANSWER_ONE:
       return {
@@ -92,6 +93,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         users: { ...state.users, securityAns: { ...state.users.securityAns, securityAnsID2: action.payload } }
+      }
+    case SET_USER_ID:
+      return {
+        ...state,
+        users: { ...state.users },
+        userId : action.payload
       }
 
     default:

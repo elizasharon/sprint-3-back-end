@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import Axios from './Axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class DeregisterButton extends Component {
+class DeregisterButton extends Component {
 
     constructor(props) {
         super(props);
@@ -15,7 +17,7 @@ export default class DeregisterButton extends Component {
             deregistertype:"",
 
             userdata :{
-              userId :this.props.match.params.id, 
+              userId :this.props.state.userId, 
               password :""
             }
           
@@ -119,7 +121,7 @@ export default class DeregisterButton extends Component {
 
       
   render() {
-    console.log(this.props)
+    // console.log(this.props.state.userId);
     let check  = (       
           <div>
               <br></br>
@@ -186,3 +188,13 @@ export default class DeregisterButton extends Component {
     )
   }
 }
+
+DeregisterButton.propTypes = {
+  state: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  state: state.register
+})
+
+export default connect(mapStateToProps, { })(DeregisterButton);

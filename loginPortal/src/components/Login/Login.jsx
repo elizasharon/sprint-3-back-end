@@ -6,7 +6,11 @@ import Recaptcha from 'react-recaptcha';
 import { store } from 'react-notifications-component';
 import {Link} from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 // import FacebookLogin from 'react-facebook-login';
+import { setUserId } from '../../actions/registerAction';
+
 class Login extends React.Component {
   constructor() {
     super();
@@ -191,7 +195,9 @@ class Login extends React.Component {
   axiosReponse(url, obj) {
     Axios.auth.postAuthentication(url, obj)
         .then(res => {
-        console.log(res.data.loginStatusMessage);
+        console.log(res.data.userID);
+        this.props.setUserId(res.data.userID);
+
         if (res.data.loginStatusMessage === "Authenticated") {
           console.log("in authentcated status")
           store.addNotification({
@@ -518,4 +524,13 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  setUserId : PropTypes.func.isRequired,
+  state: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  state: state.register
+})
+
+export default connect(mapStateToProps, { setUserId })(Login);
