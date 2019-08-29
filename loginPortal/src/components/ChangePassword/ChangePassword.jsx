@@ -129,7 +129,7 @@ export default class ChangePassword extends Component {
         }
       }
       console.log(userObject);
-      Axios.post('http://10.150.120.146:8015/api/change', userObject)
+      Axios.changePassword('/change', userObject)
         .then(
           res => {
             console.log(res.data)

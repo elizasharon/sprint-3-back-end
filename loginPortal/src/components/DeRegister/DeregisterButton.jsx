@@ -63,7 +63,7 @@ export default class DeregisterButton extends Component {
         if(temp === 'deactivate'){
               console.log("here")
           
-              Axios.auth.postusersDeactivate(this.state.userdata)
+              Axios.auth.postDeregister("/deactivate",this.state.userdata)
              .then(response => {
                console.log(response);
                if (response.data.status === 400) {
@@ -80,7 +80,7 @@ export default class DeregisterButton extends Component {
         }
       if(this.state.deregistertype ==='forgetme'){
         console.log("here")
-        Axios.auth.postusersForget(this.state.userdata)
+        Axios.auth.postDeregister("/forgetuser",this.state.userdata)
         .then(response => {
           console.log(response);
           if (response.data.status === 400) {

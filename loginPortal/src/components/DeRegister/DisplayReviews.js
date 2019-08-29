@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import Axios from './Axios';
+import Axios from '../../Axios';
 import ReviewCard from './ReviewCard'
 export default class DisplayReviews extends Component {
 
@@ -18,7 +18,7 @@ export default class DisplayReviews extends Component {
     }
 
     componentDidMount() {
-        Axios.auth.getReviews()
+        Axios.auth.getDeregister("/getreviews")
           .then(response => this.setState({ fullList: response.data }))
           
       }

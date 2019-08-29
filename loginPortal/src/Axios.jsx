@@ -15,26 +15,34 @@ const deRegister =  axios.create({
 })
 
 const login =  axios.create({
-    baseURL: "http://10.150.124.14:8013/api",
+    baseURL: "http://10.150.179.102:8013/api",
     responseType: "json"
 })
 
-// const register =  axios.create({
-//     baseURL: "http://localhost:8005/api/v1/users",
-//     responseType: "json"
-// })
-// const register =  axios.create({
-//     baseURL: "http://localhost:8005/api/v1/users",
-//     responseType: "json"
-// })
-// const register =  axios.create({
-//     baseURL: "http://localhost:8005/api/v1/users",
-//     responseType: "json"
-// })
-// const register =  axios.create({
-//     baseURL: "http://localhost:8005/api/v1/users",
-//     responseType: "json"
-// })
+const admin_update =  axios.create({
+    baseURL: "http://localhost:8020",
+    responseType: "json"
+})
+
+const admin_delete =  axios.create({
+    baseURL: "http://localhost:8003",
+    responseType: "json"
+})
+
+const change_password =  axios.create({
+    baseURL: "http://10.150.120.146:8015/api",
+    responseType: "json"
+})
+
+const forgot_password =  axios.create({
+    baseURL: "http://localhost:8009/forgotpassword",
+    responseType: "json"
+})
+
+const edit_profile = axios.create({
+    baseURL: "http://localhost:8018",
+    responseType: "json"
+})
 
 export default{
     auth: {
@@ -48,21 +56,48 @@ export default{
             return register.post("/register",data);
         },
 
-
-        postusersForget(data){
-            return deRegister.post("/forgetuser",data);
+        postDeregister(url, data){
+            return deRegister.post(url, data);
         },
-        getReviews(data){
-            return deRegister.get("/getreviews",data);
-        },
-        postusersDeactivate(data){
-            return deRegister.post("/deactivate",data);
+        getDeregister(url){
+            return deRegister.get(url);
         },
 
 
         postAuthentication(url, data){
             return login.post(url, data);
+        },
+
+
+        getAllDetailsAdmin(url){
+            return admin_update.get(url);
+        },
+
+
+        deleteUser(url, data){
+            return admin_delete.post(url, data);
+        },
+
+
+        changePassword(url, data){
+            return change_password.post(url, data);
+        },
+
+
+
+        forgotPassword(url, data){
+            return forgot_password.post(url, data);
+        },
+
+
+
+        editProfile(url){
+            return edit_profile.get(url);
+        },
+        editProfile(url, data){
+            return edit_profile.post(url, data);
         }
+
 
     }
 }

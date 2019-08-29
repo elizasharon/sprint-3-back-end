@@ -1,6 +1,5 @@
 import React from 'react';
 import Axios from 'axios';
-// import './Setpassword.css';
 export default class Setpassword extends React.Component{
 
     constructor(props) {
@@ -113,7 +112,7 @@ export default class Setpassword extends React.Component{
        let  cpwd = document.getElementById("t2").value;
         if(pwd===cpwd && pwd!=""){
          // Axios.post("http://10.150.121.20:8009/forgotpassword/set",data).then(res => this.setState({status:res.data.status}));
-          Axios.post("http://localhost:8009/forgotpassword/set",data).then(res => this.setState({status:res.data.status}));
+          Axios.forgotPassword("/set",data).then(res => this.setState({status:res.data.status}));
        // Axios.post("http://10.150.121.20:8009/forgotpassword/set",data).then(res => this.setState({status:res.data.status}));
         }
         else{

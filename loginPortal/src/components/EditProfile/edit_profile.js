@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import axios from 'axios';
+import Axios from '../../Axios';
 import toast from 'toasted-notes';
 import 'toasted-notes/src/styles.css'; // optional styles
 import { Link } from 'react-router-dom';
@@ -77,7 +78,7 @@ toggle = () =>{
             user: data
         })*/
  
-      axios.get('http://localhost:8018/4')
+      Axios.editProfile('/4')
         .then(res => {
           const data = res.data;
           //console.log(data);
@@ -187,7 +188,7 @@ toggle = () =>{
       }
       console.log(JSON.stringify(user)+"POSSSSSSSTTTTTTTTTTTTTTT");
       
-      axios.post('http://localhost:8018/updateUser', user)
+      Axios.editProfile('/updateUser', user)
       .then(res => {
         console.log(JSON.stringify(user) + " "+ JSON.stringify(res))
         const data=res.data;

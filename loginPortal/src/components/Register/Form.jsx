@@ -36,14 +36,14 @@ class Form extends Component {
         }
     }
 
-    formValid = formErrors => {
-        let valid = true;
-        console.log("formvalid");
-        Object.values(formErrors).forEach(value => {
-            value.length > 0 && (valid = false);
-        });
-        return valid;
-    }
+    // formValid = formErrors => {
+    //     let valid = true;
+    //     console.log("formvalid");
+    //     Object.values(formErrors).forEach(value => {
+    //         value.length > 0 && (valid = false);
+    //     });
+    //     return valid;
+    // }
 
     validate = (name, value) => {
         let formErrors = this.state.formErrors;
@@ -53,7 +53,6 @@ class Form extends Component {
                 //console.log(formErrors.firstName)
                 formErrors.firstName = (value.length < 5 || value.length > 15) ?
                     "FirstName should be between 5 to 15 characters" : "";
-                    console.log(formErrors.firstName)
                 break;
             case 'lastName':
                 formErrors.lastName = (value.length < 5 || value.length > 15) ?
@@ -91,9 +90,9 @@ class Form extends Component {
     }
 
     register = (event) => {
-        Object.keys(this.state.formErrors).forEach(key => {
-           this.validate(key, this.props.state.users[key]);
-        });
+        // Object.keys(this.state.formErrors).forEach(key => {
+        //    this.validate(key, this.props.state.users[key]);
+        // });
         console.log("HELLO");
         // // code to validate all input cases
         if (this.formValid === true) {
@@ -132,7 +131,8 @@ class Form extends Component {
         this.props.state.users[event.target.name] = event.target.value;
         newUsers = { ...this.props.state.users };
         this.props.userDataEventHandler(newUsers);
-        console.log(this.props.state)
+        //console.log(this.props.state)
+
         const { name, value } = event.target;
         this.validate(name, value);
 

@@ -43,7 +43,7 @@ export default class ForgotPassword extends React.Component{
             email:this.state.value
         }
         //Axios.post("http://10.150.176.135:8009/forgotpassword/uic",data).then(res => this.setState({status:res.data.status,msg:'please enter an email registered'}));
-        Axios.post("http://localhost:8009/forgotpassword/uic",data).then(res => this.setState({status:res.data.status,msg:'please enter an email registered'}));
+        Axios.forgotPassword("/uic",data).then(res => this.setState({status:res.data.status,msg:'please enter an email registered'}));
         //Axios.post("http://10.150.121.20:8009/forgotpassword/uic",data).then(res => this.setState({status:res.data.status,msg:'please enter registered email'}));
         
       }

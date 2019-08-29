@@ -28,7 +28,7 @@ export default class Methods extends React.Component{
             }
         }
         //Axios.post("http://10.150.176.135:8009/forgotpassword/mts",data).then(res => this.setState({data:res.data,checked:data.choice}) )
-        Axios.post("http://localhost:8009/forgotpassword/mts",data).then(res => this.setState({data:res.data,checked:data.choice}) )
+        Axios.forgotPassword("/mts",data).then(res => this.setState({data:res.data,checked:data.choice}) )
        // Axios.post("http://10.150.121.20:8009/forgotpassword/mts",data).then(res => this.setState({data:res.data,checked:data.choice}));
     }
     nothing(){
