@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import Axios from 'axios';
+import Axios from '../../Axios';
 // import '../App.css';
 import { Button } from 'react-bootstrap';
 import { store } from 'react-notifications-component';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class ChangePassword extends Component {
+class ChangePassword extends Component {
   constructor() {
     super();
     this.state = {
@@ -122,19 +124,19 @@ export default class ChangePassword extends Component {
     }
     if (errors["oldPassword"] == null && errors["hpassword"] == null && errors["confirmPassword"] == null) {
       const userObject = {
-        userID: "41",
+        userID: this.props.state.userId,
         passwordHistory: {
           pwd1: fields["oldPassword"],
           pwd2: fields["hpassword"]
         }
       }
       console.log(userObject);
-      Axios.changePassword('/change', userObject)
+      Axios.auth.changePassword('/change', userObject)
         .then(
           res => {
-            console.log(res.data)
+            console.log(res.data);
             if (res.data === "Password changed successfully") {
-              window.location.replace('http://10.150.120.146:8014');
+              //window.location.replace('http://10.150.120.146:8014');
               store.addNotification({
                 title: "Success !",
                 message: "Password changed successfully",
@@ -154,7 +156,7 @@ export default class ChangePassword extends Component {
                   oldPassword: '',
                   confirmPassword: ''
                 }
-              })
+              }, this.props.history.push('/'))
             }
             else if (res.data === "Please enter correct password") {
               store.addNotification({
@@ -251,4 +253,14 @@ export default class ChangePassword extends Component {
     )
   }
 }
+
+ChangePassword.propTypes = {
+  state: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  state: state.register
+})
+
+export default connect(mapStateToProps, { })(ChangePassword);
 

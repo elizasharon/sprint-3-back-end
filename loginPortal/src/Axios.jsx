@@ -30,8 +30,8 @@ const admin_delete =  axios.create({
 })
 
 const change_password =  axios.create({
-    baseURL: "http://10.150.120.146:8015/api",
-    responseType: "json"
+    baseURL: "http://10.150.179.102:8015/api",
+    responseType: "String"
 })
 
 const forgot_password =  axios.create({

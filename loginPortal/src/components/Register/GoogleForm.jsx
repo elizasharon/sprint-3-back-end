@@ -7,7 +7,6 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { userDataEventHandler, passwordEventHandler, selectBoxEventHandler, securityAnswers } from '../../actions/registerAction';
-import { isThisISOWeek } from 'date-fns';
 
 
 const emailRegex = RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
@@ -15,7 +14,7 @@ const phoneNoRegex = RegExp(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$
 const passwordRegex = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*_#?&])[A-Za-z\d@$!%_#*?&]{8,15}$/);
 
 
-class Form extends Component {
+class GoogleForm extends Component {
 
     constructor(props) {
         super(props);
@@ -38,12 +37,21 @@ class Form extends Component {
         }
     }
 
-    formValid = formErrors => {
+    componentWillMount (){
+        this.props.state.users.firstName = this.props.data.firstName;
+        this.props.state.users.lastName = this.props.data.lastName;
+        this.props.state.users.emailID = this.props.data.email;
+        
+    }
+
+    formValid () {
         let valid = true;
-        console.log("formvalid");
+        let formErrors = this.state.formErrors;
+      
         Object.values(formErrors).forEach(value => {
             value.length > 0 && (valid = false);
         });
+
         return valid;
     }
 
@@ -61,20 +69,16 @@ class Form extends Component {
                 formErrors.lastName = (value.length < 5 || value.length > 15) ?
                     "LastName should be between 5 to 15 characters" : "";
                 break;
-            case 'emailID':
-                formErrors.emailID = emailRegex.test(value) && value.length > 0 ?
-                    '' : "Invalid email address";
-                break;
             case 'phoneNo':
-                formErrors.phoneNo = phoneNoRegex.test(value) && value.length > 0 ?
+                formErrors.phoneNo = (phoneNoRegex.test(value) && value.length > 0) ?
                     '' : "Invalid Phone Numeber";
                 break;
-            case 'password':
-                formErrors.password = passwordRegex.test(value) ?
+           case 'password':
+                formErrors.password = (passwordRegex.test(value) ) ?
                     '' : "Password should be minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character";
                 break;
             case 'confirmPassword':
-                formErrors.confirmPassword = value === this.state.confirmPassword ?
+                formErrors.confirmPassword = (value === this.state.confirmPassword ) ?
                     '' : "Both Password and Confirm Password Should match";
                 break;
             case 'securityAnsID1':
@@ -93,12 +97,15 @@ class Form extends Component {
     }
 
     register = (event) => {
+      
         Object.keys(this.state.formErrors).forEach(key => {
            this.validate(key, this.props.state.users[key]);
         });
+
         console.log("HELLO");
+        console.log(this.formValid());
         // // code to validate all input cases
-        if (this.formValid === true) {
+        if (this.formValid() === true) {
             console.log("SUCCESS");
             // Axios.auth.postusers(this.props.state.users)
             //     .then(response => {
@@ -186,11 +193,11 @@ class Form extends Component {
     }
 
     responseGoogleSuccess = (response) => {
-
-        
         console.log(response);
-        this.props.googleregistration(response.profileObj.email,response.profileObj.givenName,response.profileObj.familyName);
-        
+        this.setState({ users: { ...this.state.users, emailID: response.profileObj.email, firstName: response.profileObj.givenName, lastName: response.profileObj.familyName } }
+            , () => {
+                this.setState({ ...this.state, firstnamereadonly: true, lastnamereadonly: true, emailreadonly: true });
+            });
     }
 
     responseGoogleFailure = (response) => {
@@ -238,12 +245,12 @@ class Form extends Component {
                         <div className="col-sm-4">
                             <input type="email" className="form-control" placeholder="EmailID" name="emailID"
 
-                                onChange={this.userDataEventHandler}
+                                readOnly
                                 value={this.props.state.users.emailID}
                             />
-                            {formErrors.emailID.length > 0 && (
+                            {/*formErrors.emailID.length > 0 && (
                                 <span>{formErrors.emailID}</span>
-                            )}
+                            )*/}
                         </div>
                     </div>
 
@@ -324,7 +331,7 @@ class Form extends Component {
                             />
                             {/* {formErrors.lastName.length > 0 && (
             <span>{formErrors.lastName}</span>
-        )} */}
+        )} */ }
                         </div>
                     </div>
 
@@ -359,9 +366,9 @@ class Form extends Component {
                                 onChange={(e) => this.securityAnswers(e.target.value, "securityAnsID1")}
                                 value={this.props.state.users.securityAns.securityAnsID1}
                             />
-                            {formErrors.securityAnsID1.length > 0 && (
+                            {/*formErrors.securityAnsID1.length > 0 && (
                                 <span>{formErrors.securityAnsID1}</span>
-                            )}
+                            )*/}
                         </div>
                     </div>
 
@@ -382,9 +389,9 @@ class Form extends Component {
                                 onChange={(e) => this.securityAnswers(e.target.value, "securityAnsID2")}
                                 value={this.props.state.users.securityAns.securityAnsID2}
                             />
-                            {formErrors.securityAnsID2.length > 0 && (
+                            {/*formErrors.securityAnsID2.length > 0 && (
                                 <span>{formErrors.securityAnsID2}</span>
-                            )}
+                            )*/}
                         </div>
                     </div>
 
@@ -398,27 +405,20 @@ class Form extends Component {
                     <button className="btn btn-primary" type="submit">Submit</button>
 
                 </form>
-                <Link to="/">
-                <button className="btn btn-primary" type="button">Login</button>
-                </Link>
-            
-                <GoogleLogin
-                    clientId={'839355568499-6ts1o97r7bk5shr369gdrhmtvebmhrkb.apps.googleusercontent.com'}
-                    buttonText="Sign Up With Google"
-
-                    onSuccess={this.responseGoogleSuccess}
-                    onFailure={this.responseGoogleFailure}
-                    cookiePolicy={'single_host_origin'} />
+                
+                
             </div>
 
         );
+        
+        
     }
 
 
 
 }
 
-Form.propTypes = {
+GoogleForm.propTypes = {
     userDataEventHandler: PropTypes.func.isRequired,
     passwordEventHandler: PropTypes.func.isRequired,
     selectBoxEventHandler: PropTypes.func.isRequired,
@@ -430,4 +430,4 @@ const mapStateToProps = state => ({
     state: state.register
 })
 
-export default connect(mapStateToProps, { userDataEventHandler, passwordEventHandler, selectBoxEventHandler, securityAnswers })(Form);
+export default connect(mapStateToProps, { userDataEventHandler, passwordEventHandler, selectBoxEventHandler, securityAnswers })(GoogleForm);

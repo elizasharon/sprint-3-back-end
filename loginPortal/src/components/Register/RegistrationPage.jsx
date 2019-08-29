@@ -10,6 +10,7 @@ import Axios from '../../Axios';
 import GoogleLogin from 'react-google-login';
 import SimpleReactValidator from 'simple-react-validator';
 import Form from './Form';
+import GoogleForm from './GoogleForm';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import store from '../../store/store';
@@ -17,6 +18,13 @@ import { connect } from 'react-redux';
 import { fetchSecurityQuestions, filterSecurityQuestions, filterSecurityQuestionOne, filterSecurityQuestionTwo } from '../../actions/registerAction';
 
 class RegistrationPage extends Component {
+
+  constructor(props){
+    super(props);
+    this.state={
+      googleregistration : false
+    }
+  }
 
   componentDidMount() {
     this.props.fetchSecurityQuestions(this.filterQuestion);
@@ -49,6 +57,12 @@ class RegistrationPage extends Component {
       });
     }
 
+  }
+
+  changeToGoogleForm = (email , firstname, lastname) =>{
+    console.log("Google Registration");
+    console.log(email);
+    this.setState({email : email , firstName : firstname , lastName : lastname, googleregistration : true});
   }
 
   // constructor() {
@@ -172,11 +186,11 @@ class RegistrationPage extends Component {
 
   render() {
 
-    return (
-      <div>
-        <Form filterQuestion={this.filterQuestion}></Form>
-      </div>
 
+
+    return (
+      this.state.googleregistration ? <GoogleForm filterQuestion={this.filterQuestion} data={this.state}></GoogleForm> : <Form filterQuestion={this.filterQuestion} googleregistration={this.changeToGoogleForm}></Form>
+  
     )
   }
 }
