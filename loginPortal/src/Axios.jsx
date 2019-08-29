@@ -15,7 +15,7 @@ const deRegister =  axios.create({
 })
 
 const login =  axios.create({
-    baseURL: "http://10.150.179.102:8013/api",
+    baseURL: "http://localhost:8013/api",
     responseType: "json"
 })
 
@@ -30,7 +30,7 @@ const admin_delete =  axios.create({
 })
 
 const change_password =  axios.create({
-    baseURL: "http://10.150.179.102:8015/api",
+    baseURL: "http://localhost:8015/api",
     responseType: "String"
 })
 

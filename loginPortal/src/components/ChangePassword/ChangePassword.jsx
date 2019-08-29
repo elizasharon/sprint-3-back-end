@@ -201,7 +201,7 @@ class ChangePassword extends Component {
             animationOut: ["animated", "fadeOut"],
           });
           console.log(error.response);
-          window.location.reload();
+          //window.location.reload();
         });
     }
   }

@@ -44,7 +44,7 @@ class Login extends React.Component {
     this.validateEmailorUserID = this.validateEmailorUserID.bind(this);
     this.clear = this.clear.bind(this);
     this.responseGoogle = this.responseGoogle.bind(this);
-    this.responseFacebook = this.responseFacebook.bind(this);
+    
     this.axiosReponse = this.axiosReponse.bind(this);
     this.expiredCallback = this.expiredCallback.bind(this);
   }
@@ -229,8 +229,8 @@ class Login extends React.Component {
         }
         else if (res.data.loginStatusMessage === "Not a confirmed user") {
           store.addNotification({
-            title: "Welcome User",
-            message: "Please confirm your email",
+            title: "Ah oh !",
+            message: "Check your email and confirm !",
             type: "warning",
             insert: "top",
             container: "top-center",
@@ -240,21 +240,6 @@ class Login extends React.Component {
             animationIn: ["animated", "flip"],
             animationOut: ["animated", "fadeOut"],
           });
-          let userObject = { passwordHistory: {} };
-          let emailIDObject = { emailID: "", passwordHistory: { pwd: "" } };
-          userObject["userID"] = "";
-          userObject["passwordHistory"]["pwd1"] = "";
-          this.setState({
-            errors: {},
-            userObject: userObject,
-            emailIDObject: emailIDObject,
-            fields: {
-              username: "",
-              hpassword: ""
-            },
-            captchaver: false,
-          });
-          setTimeout(function(){window.location.assign(`http://localhost:8002/#/`)}, 2000);
         }
         else if (res.data.loginStatusMessage === "Incorrect password") {
           store.addNotification({
@@ -316,7 +301,8 @@ class Login extends React.Component {
         });
         console.log("in network error")
         console.log(error.response);
-        window.location.reload();
+       //
+        //window.location.reload();
       });
   }
 
@@ -340,7 +326,7 @@ class Login extends React.Component {
     else {
       //Welcome page
       //let url = "http://localhost:8013/api/authenticate";
-      let url = "/authenticate"
+      let url = "/login"
       console.log(this.state.fields["username"]);
       console.log(this.state.fields["hpassword"]);
       let errors = this.state.errors;
@@ -392,31 +378,31 @@ class Login extends React.Component {
     //console.log(this.state.google_response);
     let url = "/google"
     console.log("inside google signin")
-    this.axiosReponse(url, this.state.emailIDObject)
-    this.setState({
-      emailIDObject: {}
-    });
+    //this.axiosReponse(url, this.state.emailIDObject)
+    // this.setState({
+    //   emailIDObject: {}
+    // });
+    Axios.auth.postAuthentication(url, this.state.emailIDObject)
+        .then(res => {
+        console.log(res.data.userID);
+        this.props.setUserId(res.data.userID);
+        if (res.data.loginStatusMessage === "Authenticated") {
+          console.log("in authentcated status")
+          this.props.history.push('/welcome')
+
+        }
+        if(res.data.loginStatusMessage=="User doesn't exist")
+        {
+          console.log("User doesn't exist")
+          this.props.history.push("/register");
+        }
+      })
+    
+
   }
 
-  responseFacebook = (response) => {
-    console.log("inside fb function")
-    console.log(response);
-    let emailObj = {
-      emailID: '',
-      passwordHistory: {
-        pwd1: ''
-      }
-    }
-    emailObj["emailID"] = response.email;
-    this.setState({ emailIDObject: emailObj });
-    console.log("for my details ")
-    console.log(emailObj);
-    let url = "/google"
-    this.axiosReponse(url, this.state.emailIDObject)
-    this.setState({
-      emailIDObject: {}
-    });
-  }
+
+  
 
   render() {
     return (
